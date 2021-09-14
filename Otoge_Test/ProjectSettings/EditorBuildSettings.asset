@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Tyakkari.unity
+    guid: c47c45658d0484ed980596b7c47107a0
+  - enabled: 1
+    path: Assets/Scenes/Tykkari2.unity
+    guid: e7d644ffde7dd418d9ae71a5429fde91
   m_configObjects: {}
