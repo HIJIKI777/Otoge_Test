@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour {
     private bool _isPlaying = false;
     public GameObject startButton;
 
+    public float count = 3;
 
     void Start(){
         _audioSource = GameObject.Find ("BGM").GetComponent<AudioSource> ();
@@ -32,6 +33,13 @@ public class GameController : MonoBehaviour {
     void Update () {
         if (_isPlaying) {
             CheckNextNotes ();
+            if(count < 0){
+                _audioSource.Play ();
+                count = 0;                             //countの値を0秒にしてゲーム修了時まで流さなくする
+            }else if(count == 0){}
+            else{
+                count = count - Time.deltaTime;         //4秒の前置きを設定する
+        }
         }   //OK
 
     }
@@ -39,12 +47,11 @@ public class GameController : MonoBehaviour {
     public void StartGame(){
         startButton.SetActive (false);
         _startTime = Time.time;
-        _audioSource.Play ();
         _isPlaying = true;
     }
 
     void CheckNextNotes(){
-        while (_timing [_notesCount] + timeOffset < GetMusicTime ()) {
+        while (_timing [_notesCount] + timeOffset < GetMusicTime ()&& _timing [_notesCount] != 0) {
             SpawnNotes (_lineNum[_notesCount]);
             _notesCount++;
         }
@@ -52,7 +59,7 @@ public class GameController : MonoBehaviour {
 
     void SpawnNotes(int num){
         Instantiate (notes[num], 
-            new Vector3 (-4.0f + (2.0f * num), 10.0f, 0),
+            new Vector3 (-4.0f + (2.0f * num), 15.0f, 0),
             Quaternion.identity);
     }
 
